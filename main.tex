@@ -362,14 +362,91 @@ greater flexibility and control over the synthesized speech’s emotional qualit
 \cite{kim2021conditional}.
 
 \newpage
-\section {Methodology}
+\section{Background}
+
+Denoising diffusion probabilistic models (DDPMs) are a class of generative
+models that learn a data distribution by iteratively denoising a noisy signal.
+These models operate through two main processes: the \textit{forward process}
+and the \textit{reverse process}.
+
+\subsection{Forward Process}
+The forward process $q(\cdot)$ progressively adds Gaussian noise to the data
+$\mathbf{x}_0$ over $T$ timesteps, resulting in a latent variable $\mathbf{x}_T$
+that approximates an isotropic Gaussian distribution. This process is
+parameterized as a Markov chain:
+\begin{equation}
+q(\mathbf{x}_t | \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t; \sqrt{1 - \beta_t}\mathbf{x}_{t-1}, \beta_t \mathbf{I}),
+\end{equation}
+where $\beta_t \in \{\beta_1, \dots, \beta_T\}$ represents the predefined noise
+schedule.
+
+By repeatedly applying this transition, we can express $\mathbf{x}_t$ in terms
+of $\mathbf{x}_0$:
+\begin{equation}
+\mathbf{x}_t = \sqrt{\gamma_t}\mathbf{x}_0 + \sqrt{1 - \gamma_t}\boldsymbol{\epsilon}, \quad \boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}),
+\end{equation}
+where $\gamma_t = \prod_{i=1}^t (1 - \beta_i)$.
+
+\subsection{Reverse Process}
+The reverse process aims to reconstruct the original data $\mathbf{x}_0$ from
+the noisy sample $\mathbf{x}_T$ by inverting the forward process. This is
+achieved by approximating the conditional distribution
+$p_\theta(\mathbf{x}_{t-1} | \mathbf{x}_t)$ using a neural network:
+\begin{equation}
+p_\theta(\mathbf{x}_{t-1} | \mathbf{x}_t) = \mathcal{N}(\mathbf{x}_{t-1}; \boldsymbol{\mu}_\theta(\mathbf{x}_t, t), \sigma_t^2 \mathbf{I}),
+\end{equation}
+where $\sigma_t^2$ is derived from the noise schedule, and the mean
+$\boldsymbol{\mu}_\theta$ is defined as:
+\begin{equation}
+\boldsymbol{\mu}_\theta(\mathbf{x}_t, t) = \frac{1}{\sqrt{1 - \beta_t}} \left( \mathbf{x}_t - \frac{\beta_t}{\sqrt{1 - \gamma_t}} \boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t) \right).
+\end{equation}
+
+\subsection{Training Objective}
+The neural network $\boldsymbol{\epsilon}_\theta$ is trained to predict the
+added noise $\boldsymbol{\epsilon}$, minimizing the following loss function:
+\begin{equation}
+\mathcal{L}_{\text{simple}} = \mathbb{E}_{\mathbf{x}_0, \mathbf{x}_t, \boldsymbol{\epsilon}} \left[ \| \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t) \|^2 \right].
+\end{equation}
+
+Extensions like PriorGrad modify this framework by introducing a prior
+distribution to incorporate domain-specific knowledge, such as frame-level
+energy in mel-spectrograms, leading to an adjusted loss function:
+\begin{equation}
+\mathcal{L}_{\text{diff}} = \mathbb{E}_{\mathbf{x}_0, \mathbf{x}_t, \boldsymbol{\epsilon}} \left[ \| \boldsymbol{\epsilon} - \boldsymbol{\epsilon}_\theta(\mathbf{x}_t, t, \mathbf{X}) \|_{\Sigma}^{2} \right],
+\end{equation}
+where $\Sigma$ is a diagonal matrix representing normalized frame-level energy
+of the mel-spectrogram $\mathbf{X}$.
+
 
 
 \newpage
 \section {Experiments}
 
-\newpage
+\subsection{Training Setup}
+We conducted experiments using the LJSpeech dataset \cite{ito2017lj}, a publicly
+available 24-hour speech dataset comprising 13,100 audio clips from a single
+female speaker. The dataset was preprocessed to generate 80-band
+mel-spectrograms computed with a 1024-point FFT, a hop length of 256, and a
+frequency range of 80Hz to 7,600Hz. 
 
+For training, we used 13,000 clips, with 5 clips reserved for validation and the
+remaining 95 clips for testing. A publicly available implementation
+\cite{kong2021diffwave} was employed, utilizing a model with 2.62M parameters
+optimized using the Adam optimizer \cite{kingma2014adam} with a learning rate of
+$2 \times 10^{-4}$. Training was performed over 1M iterations, requiring
+approximately 7 days on a single NVIDIA A40 GPU.
+
+The diffusion process was configured with $T = 50$ steps and a linear beta
+schedule ranging from $1 \times 10^{-4}$ to $5 \times 10^{-2}$, consistent with
+the default settings of the DiffWave\textsubscript{BASE} model
+\cite{kong2021diffwave}. For inference, a faster noise schedule with
+$T_{\text{infer}} = 6$ steps was utilized, as specified in the same
+implementation. To ensure a fair comparison, all models, including WaveGrad
+\cite{chen2020wavegrad} and PriorGrad \cite{chen2021priorgrad}, were trained and
+evaluated under identical conditions.
+
+
+\newpage
 \section{Evaluations}
 
 \newpage
