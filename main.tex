@@ -1,4 +1,4 @@
-\documentclass[12pt, a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 \usepackage[english]{babel}
 \usepackage{titlesec}
 
@@ -43,10 +43,7 @@
 \usepackage{tikz}
 \usepackage[numbers]{natbib}
 \usepackage{subcaption}
-
 \usepackage{dirtree}
-
-
 
 \usetikzlibrary{arrows, snakes, backgrounds, calc}
 \usepackage[unicode]{hyperref}
@@ -101,7 +98,7 @@
 	\begin{tabular}{l}
 		\tiny \bf \\
 		\tiny \bf \end{tabular}  } \fancyfoot{} % clear all footer fields
-\fancyfoot[L]{\scriptsize Big data (CO) - Academic year 2024 - 2025}
+\fancyfoot[L]{\scriptsize Modern Speech Processing (CO5257) - Academic year 2024 - 2025}
 \fancyfoot[R]{\scriptsize  Page {\thepage}/\pageref{LastPage}}
 \renewcommand{\headrulewidth}{0.3pt}
 \renewcommand{\footrulewidth}{0.3pt}
@@ -234,15 +231,15 @@
 
     \begin{center}
         \begin{tabular}{c}
-        \multicolumn{1}{l}{\textbf{{\Large Big Data (CO1007)}}}\\
+        \multicolumn{1}{l}{\textbf{{\Large Modern Speech Processing
+        (CO5257)}}}\\
         ~~\\
         \hline
         \\
         \multicolumn{1}{l}{\textbf{{\Large Assignment Report}}}\\
         \\
-        \textbf{{\Huge Applying Streaming SQL in}}\\
-        \textbf{{\Huge Real-Time Social Media}}\\
-        \textbf{{\Huge Interaction Tracking}}\\
+        \textbf{{\Large Enhancing Vocoder Designs }}\\
+        \textbf{{\Large with Emotion Embeddings and Emotional Cues}}\\
         \\
         \hline
         \end{tabular}
@@ -251,10 +248,10 @@
     \vspace{1cm}
     \begin{table}[H]
         \begin{tabular}{rrl}
-        \hspace{5 cm} & \textbf{Mentor}: & Thoại Nam \\
+        \hspace{5 cm} & \textbf{Mentor}: & Nguyễn Đức Dũng\\
         
         & \textbf{Student}: & Trần Hà Tuấn Kiệt -- 2011493 \\
-        & & Nguyễn Đức Thuỵ -- 2012158 \\
+        
         \end{tabular}
         \end{table}
     \vspace{1cm}
@@ -263,7 +260,6 @@
         {\large Ho Chi Minh City, \the\month/\the\year}
     \end{center}
 \end{titlepage}
-
 
 \newpage
 
@@ -301,244 +297,85 @@
 \tableofcontents
 \newpage
 
-%\thispagestyle{empty}
-\listoffigures
-\listoftables
+%\thispagestyle{empty} \renewcommand\thechapter{Chapter \arabic{chapter}}
+
+\section*{Abstract}
+This article explores the integration of emotion embeddings and emotional cues
+into vocoder architectures to enhance expressiveness in speech synthesis. Modern
+vocoders, while capable of producing high-quality audio, often fail to
+effectively capture the nuanced prosody and variability required for emotionally
+rich speech. By conditioning vocoders with emotion-specific embeddings and
+leveraging emotional cues such as pitch, rhythm, and intensity, this study aims
+to bridge the gap between technical accuracy and human-like expressiveness.
+Moreover, the study proposes a universal emotion-aware conditioning framework
+applicable to neural, statistical, and hybrid vocoder designs. Through a
+combination of theoretical exploration and empirical validation, the methodology
+demonstrates improvements in emotional fidelity and naturalness across
+synthesized speech outputs.
+\newpage
+\section{Introduction}
+
+% Provide background on vocoder technology and its evolution.
+Neural vocoders represent a cutting-edge technology in speech synthesis,
+specializing in transforming intermediate acoustic representations, such as
+spectrograms, into lifelike audio waveforms \cite{oord2016wavenet,
+jang2021univnet, siuzdak2022vocos}. Renowned for their capability to produce
+high-fidelity, natural-sounding speech, these models have become a pivotal
+component of contemporary speech synthesis frameworks
+\cite{albadawy2021vocbench, zarazaga2022neural}. Despite their significant
+advances, a notable gap remains in achieving nuanced emotional expressiveness,
+which is crucial for applications like virtual assistants, dubbing, and
+human-computer interaction.
+
+One of the primary shortcomings of existing vocoders lies in their inability to
+accurately model the subtle variations in pitch, rhythm, intensity, and spectral
+quality that characterize emotional speech \cite{siuzdak2022vocos}. Emotions
+such as happiness, sadness, and anger often involve intricate acoustic
+modulations, yet current models struggle to replicate these nuances. This
+limitation stems partly from the design priorities of most vocoders, which focus
+on naturalness and intelligibility rather than expressiveness.
+
+Another challenge is the lack of generalization across speakers. Emotional
+expressiveness varies significantly between individuals due to differences in
+vocal characteristics and delivery styles. While vocoders can achieve high
+performance when tailored to a specific speaker, their performance tends to
+degrade when applied to other voices. This limitation arises because emotional
+cues are often entangled with speaker-specific features, making it difficult for
+models to adapt without extensive retraining \cite{zarazaga2022neural}.
+
+The scarcity of high-quality, emotion-annotated datasets further exacerbates the
+issue. Emotional speech synthesis requires large datasets that encompass a wide
+range of emotions, speakers, and languages. However, collecting such datasets is
+resource-intensive, and the subjective nature of emotion labeling introduces
+inconsistencies. As a result, many vocoders are trained on datasets dominated by
+neutral or mildly expressive speech, leaving them ill-equipped to handle more
+dramatic or subtle emotional variations.
+
+
+% Discuss the gap in existing vocoders regarding emotional expressiveness.
+% Introduce the concept of emotion embeddings and their relevance. State the
+% objectives: integrating emotion embeddings, improving emotional fidelity, and
+% ensuring generalizability across vocoder types.
+
+
+\newpage
+\section {Methodology}
+
+
+\newpage
+\section {Experiments}
+
 \newpage
 
-% \renewcommand\thechapter{Chapter \arabic{chapter}}
+\section{Evaluations}
 
-\section{Introduction about Social media Interaction}
-\textbf{Social Media Interaction} refers to the ways users engage and
-communicate with content, brands, and other users on social media platforms. It
-encompasses all forms of engagement, such as likes, comments, shares, mentions,
-direct messages, and reactions to posts. These interactions create a dynamic,
-two-way communication channel between individuals, communities, and businesses.
-
-Social media interaction encompasses various elements that enable engagement and
-communication among users, brands, and communities. Engagement types like likes,
-comments, shares, retweets, and mentions, which allow users to express opinions
-and amplify content. Direct communication, such as private messages and replies,
-facilitates personal connections, while user-generated content (UGC) like
-reviews and testimonials highlights the creative involvement of users.
-Additionally, community engagement through group discussions and forums fosters
-a sense of belonging and collaboration. 
-
-The importance of social media interaction lies in its ability to provide
-real-time feedback, offering valuable insights into audience opinions,
-preferences, and sentiments. It enhances brand awareness by increasing
-visibility and trust, while also allowing businesses to analyze content
-performance and measure campaign success. Social media interaction builds strong
-relationships between brands and their audiences, encourages loyalty, and helps
-identify emerging trends and consumer behaviors. Ultimately, it serves as a
-powerful tool for driving meaningful connections and strategic growth in the
-digital landscape.
-
-This concept underscores the importance of leveraging unbounded data streams to
-stay competitive in the dynamic world of digital engagement. The accompanying
-vibrant image of individuals in creative poses reflects the dynamic and lively
-nature of social media platforms, aligning with the essence of constant
-interaction and engagement.
-
-Let's take a look at a comparison between bounded dataset and unbounded dataset
-in data processing.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{Images/unbounded-data.png}
-    \vspace{1em}
-    \caption{Comparison between bounded dataset and unbounded dataset}
-    \label{fig:comparison}
-\end{figure}
-
-\textbf{A table represents a bounded dataset}, meaning it contains a finite and
-complete set of data at any given time. This bounded nature allows for aggregate
-or summary calculations, such as counting records or calculating averages. For
-example, the query \textbf{`SELECT count(*) FROM orders WHERE price > 100`} can
-aggregate the results in the table to produce a deterministic count because the
-data is static and complete.
-
-On the other hand, \textbf{streams represent unbounded dataset}, where data
-continuously flows in over time. Since streams are ongoing, queries on streams
-never actually end; they continuously process incoming data. For example, when
-applying the same query to a stream, each incoming event is processed
-individually, providing incremental updates to the results. This behavior is
-suitable for scenarios such as real-time analytics or monitoring, where data is
-continuously generated and processed.
-
-In short, the \textbf{Figure \ref{fig:comparison}} demonstrates this distinction
-effectively, showing how tables aggregate finite data into a static result,
-while streams generate dynamic, continuously updated outputs. This concept is
-essential in understanding how modern data systems like databases, stream
-processors, and big data frameworks handle and process information.
-
-\section{Problem Statement}
-    \subsection{Impact}
-    \textbf{The lack of real-time insights from unbounded social data}
-    significantly hampers the ability of businesses and organizations to respond
-    promptly to trends and audience engagement. In the fast-paced digital
-    landscape, trends evolve rapidly, and audience preferences shift
-    dynamically. Without continuous access to real-time data streams, it becomes
-    difficult to monitor and analyze social interactions effectively. This delay
-    in gaining actionable insights prevents organizations from adapting
-    strategies, capitalizing on emerging opportunities, or addressing potential
-    challenges in a timely manner. Ultimately, the inability to respond to
-    real-time engagement can lead to missed opportunities, reduced
-    competitiveness, and weakened connections with audiences, making it crucial
-    to leverage tools that process unbounded data streams for effective
-    decision-making and sustained growth.
-    \subsection{Objectives}
-    The objective is to \textbf{implement a real-time social media interaction
-    tracking system for platforms} like Mastodon and X (formerly Twitter). This
-    system will process and analyze unbounded streams of social media data,
-    enabling organizations to monitor user interactions, engagement trends, and
-    audience behaviors as they happen. By providing actionable insights in real
-    time, it empowers businesses to stay responsive to emerging trends, adapt
-    strategies effectively, and maintain relevance in the fast-paced digital
-    landscape. This highlights the importance of leveraging advanced data
-    processing technologies to manage the dynamic nature of social media,
-    ensuring informed and timely decision-making.
-
-    \subsection{Approach}
-        \subsubsection{Data Collection}
-            \subsubsubsection*{Mastodon}
-            Mastodon is a decentralized social media platform structured as a
-            \textbf{network of independent servers}, commonly referred to as
-            instances. Each instance operates independently, serving unique
-            communities and interests, yet they remain interconnected through a
-            federated network. This decentralized approach contrasts with
-            centralized platforms, fostering diversity and community-specific
-            experiences.
-            \begin{itemize}
-                \item \textbf{Structure:} Mastodon’s ecosystem consists of
-                multiple independent servers, each catering to distinct
-                communities while participating in a larger, interconnected
-                federation.
-                \item \textbf{Data access:} Mastodon provides real-time data
-                streams through its Server-Sent Events (SSE) API, enabling
-                access to ongoing activities like posts, mentions, hashtags, and
-                interactions.
-                \item \textbf{Data types:} The platform generates various types
-                of data, including posts, mentions, hashtags, and user
-                interactions, making it a rich source for social media analytics
-                and engagement monitoring.
-            \end{itemize}
-            $\quad$ Mastodon presents unique challenges due to its decentralized
-            structure, where data is distributed across numerous independent
-            servers (instances). Aggregating and analyzing data from the entire
-            network is inherently complex and resource-intensive, requiring
-            sophisticated solutions to handle the fragmented ecosystem.
-            Additionally, Mastodon's strong emphasis on user privacy, with
-            strict controls and regulations, further complicates data collection
-            and processing while ensuring compliance with user preferences and
-            privacy standards.
-            \subsubsubsection*{X (formerly Twitter)}
-            X, formerly known as Twitter, operates as a centralized social media
-            platform with a unified database, making it distinct from
-            decentralized systems like Mastodon. This centralized structure
-            provides a single, cohesive source of data, which simplifies access
-            and analysis for users, developers, and organizations.
-            \begin{itemize}
-                \item \textbf{Structure:} X is built on a centralized database
-                architecture, enabling streamlined data management and easier
-                access to platform-wide information.
-                \item \textbf{Data access:} The platform offers real-time
-                streams through the X API, allowing developers to track
-                activities such as tweets, retweets, likes, mentions, and
-                trending topics in real time.
-                \item \textbf{Data types:} X generates various types of valuable
-                data, including tweets, retweets, likes, mentions, and trends,
-                making it a vital source for social media analytics and
-                insights.
-            \end{itemize}
-            $\quad$ X faces notable challenges in its data access and usage policies.
-            Strict \textbf{rate limits on API usage} restrict the volume of data that
-            can be collected within a specific timeframe, creating barriers to
-            conducting comprehensive and large-scale analyses. Additionally,
-            \textbf{privacy regulations and API restrictions} further complicate data
-            collection and processing, as developers and researchers must
-            navigate limitations designed to protect user data while ensuring
-            compliance with legal and ethical standards. These challenges
-            necessitate innovative solutions to effectively leverage the
-            platform's data while respecting its constraints.
-            \subsubsection{Concept}
-            \textbf{Streaming SQL} is an extension of traditional SQL, specifically designed to handle unbounded, real-time data streams. Unlike standard SQL, which processes finite datasets stored in static tables, Streaming SQL operates on continuous data streams that are constantly being updated, enabling real-time analysis and processing.
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=0.7\textwidth]{Images/image (1).png}
-                \vspace{1em}
-                \caption{Concept of Streaming SQL}
-            \end{figure}
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=0.7\textwidth]{Images/image (2).png}
-                \vspace{1em}
-                \caption{Concept of Streaming SQL}
-            \end{figure}
-            \subsubsubsection*{Dataflow Semantics}
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=0.7\textwidth]{Images/row-by-row.png}
-                \vspace{1em}
-                \caption{Row-by-Row Processing}
-            \end{figure}
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=0.7\textwidth]{Images/sliding-window.png}
-                \vspace{1em}
-                \caption{Sliding windows}
-            \end{figure}
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=0.7\textwidth]{Images/tumbling-window.png}
-                \vspace{1em}
-                \caption{Tumbling windows}
-            \end{figure}
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=0.7\textwidth]{Images/apply-JOIN.png}
-                \vspace{1em}
-                \caption{Apply to Join Operation}
-            \end{figure}
-            \subsubsubsection*{Update Semantics}
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=0.7\textwidth]{Images/bounded-data-in-time.png}
-                \vspace{1em}
-                \caption{Bounded Data in Time}
-            \end{figure}
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=0.7\textwidth]{Images/image (6).png}
-                \vspace{1em}
-                \caption{processing logic of Incremental Updates}
-            \end{figure}
-        
-        \subsubsection{Tool }
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.7\textwidth]{Images/arroyo.png}
-            \vspace{1em}
-            \caption{Arroyo}
-        \end{figure}
-        We will incorporate \textbf{Arroyo}, a distributed stream processing engine developed in Rust, as part of our technology stack to handle real-time data streams efficiently. Arroyo is designed to support SQL-based queries, making it accessible for processing large volumes of unbounded data streams with ease. Its high scalability ensures that it can handle significant workloads while maintaining \textbf{exactly-once semantics}, which is critical for ensuring data accuracy and consistency. This tool will enable us to implement robust, real-time data processing pipelines, making it an ideal choice for applications requiring low-latency and fault-tolerant stream analytics.
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=\textwidth]{Images/tool-dash.png}
-            \vspace{1em}
-            \caption{dashboard}
-        \end{figure}
-
-\section{Implementation}
-    \subsection{Set Up Infrastructure}
-    \subsection{Define Data Pipeline}
-    \subsection{Develop Key Tracking Metrics}
-    \subsection{Build dashboard}
+\newpage
 \section{Conclusion}
 
-\bibliographystyle{plainnat}
-\bibliography{refs}
-
+\newpage
 \nocite{*}
+\bibliographystyle{ieeetr}
+
+\bibliography{refs}
 
 \end{document}
