@@ -263,30 +263,6 @@
 
 \newpage
 
-%\thispagestyle{empty} \chapter*{Work Assignment} \begin{table}[H] \centering
-% \renewcommand{\arraystretch}{1.5} \begin{tabular}{|c|c|c|l|} \hline
-% \textbf{No.}       & \textbf{Full name}                 & \textbf{Student ID}
-% & \textbf{Work Assignment}                     \\
-%         \hline %%%%%Student 1%%%%%%%%%%% \multirow{4}{*}{1} &
-%         \multirow{4}{*}{Trần Hà Tuấn Kiệt} & \multirow{4}{*}{2011493} & -
-%         Exploratory Data Analysis                  \\
-%                            &                                    &
-%                            & - System proposal and architecture           \\
-%                            &                                    &
-%                            & - Research and Develop with new technologies \\
-%                            &                                    &
-%                            & - Implement system endpoints                 \\
-%         \hline %%%%%Student 2%%%%%%%%%%% \multirow{4}{*}{2} &
-%         \multirow{4}{*}{Nguyễn Đức Thuỵ}   & \multirow{4}{*}{2012158} & -
-%         Exploratory Data Analysis                  \\
-%                            &                                    &
-%                            & - System proposal and architecture           \\
-%                            &                                    &
-%                            & - Research and Develop with new technologies \\
-%                            &                                    &
-%                            & - Implement data processing flows            \\
-%         \hline \end{tabular} \end{table} \newpage
-
 % Revert title name back to English
 \renewcommand{\contentsname}{Table of Contents}
 \renewcommand{\listfigurename}{List of Figures}
@@ -315,48 +291,75 @@ synthesized speech outputs.
 \newpage
 \section{Introduction}
 
-% Provide background on vocoder technology and its evolution.
-Neural vocoders represent a cutting-edge technology in speech synthesis,
+In recent years, synthetic speech technology has seen a marked expansion within
+human-computer interaction. This trend reflects the inherent complexity of human
+speech, which encodes not only linguistic content but also para-linguistic and
+non-linguistic cues. Linguistic information can be derived directly from written
+text or contextual inferences, whereas para-linguistic features are deliberately
+introduced by the speaker to enhance or modify the message. By contrast,
+non-linguistic aspects---such as emotional state---are often beyond the
+speaker’s voluntary control, presenting additional challenges in achieving truly
+expressive synthesized speech \cite{an2021emotional}. These complexities have
+motivated extensive research in text-to-speech (TTS) synthesis aiming to
+generate stylish, expressive, or emotional speech \cite{nose2007style,
+henter2017principles, lorenzotrueba2018investigating, wang2018style,
+skerry2018towards, wu2018feature, wu2018rapid, liu2020multi}. Ultimately,
+bridging these complexities is crucial for creating speech synthesis that feels
+natural and truly conveys the richness of human speech.
+
+To tackle these challenges and more accurately model the multifaceted nature of
+human speech, researchers have turned to advanced neural network architectures.
+\emph{Neural vocoders} represent a cutting-edge technology in speech synthesis,
 specializing in transforming intermediate acoustic representations, such as
 spectrograms, into lifelike audio waveforms \cite{oord2016wavenet,
 jang2021univnet, siuzdak2022vocos}. Renowned for their capability to produce
 high-fidelity, natural-sounding speech, these models have become a pivotal
 component of contemporary speech synthesis frameworks
-\cite{albadawy2021vocbench, zarazaga2022neural}. Despite their significant
-advances, a notable gap remains in achieving nuanced emotional expressiveness,
-which is crucial for applications like virtual assistants, dubbing, and
-human-computer interaction.
+\cite{albadawy2021vocbench, zarazaga2022neural}. Moreover, emotion embeddings
+have emerged as a key strategy to capture and encode subtle emotional
+cues---including intonation, prosody, and timbre---in a learned representation.
+When integrated into modern TTS pipelines, such embeddings enrich the expressive
+range of synthesized speech, making it more engaging and human-like
+\cite{lei2022msemotts}. However, accurately modeling the nuances of emotion
+remains an ongoing challenge, driven by the inherent complexity of emotional
+expression and the diverse contexts in which it
+appears\cite{raptis2014expressive}. This paper aims to integrate emotion
+embeddings directly into the waveform generation process through a novel neural
+vocoder architecture. By leveraging these representations, the system aspires to
+produce speech that is both high-fidelity and emotionally expressive, unlocking
+applications in empathetic virtual agents, personalized audiobooks, and
+emotion-driven interfaces that enhance user engagement and interactivity.
 
-One of the primary shortcomings of existing vocoders lies in their inability to
-accurately model the subtle variations in pitch, rhythm, intensity, and spectral
-quality that characterize emotional speech \cite{siuzdak2022vocos}. Emotions
-such as happiness, sadness, and anger often involve intricate acoustic
-modulations, yet current models struggle to replicate these nuances. This
-limitation stems partly from the design priorities of most vocoders, which focus
-on naturalness and intelligibility rather than expressiveness.
-
-Another challenge is the lack of generalization across speakers. Emotional
-expressiveness varies significantly between individuals due to differences in
-vocal characteristics and delivery styles. While vocoders can achieve high
-performance when tailored to a specific speaker, their performance tends to
-degrade when applied to other voices. This limitation arises because emotional
-cues are often entangled with speaker-specific features, making it difficult for
-models to adapt without extensive retraining \cite{zarazaga2022neural}.
-
-The scarcity of high-quality, emotion-annotated datasets further exacerbates the
-issue. Emotional speech synthesis requires large datasets that encompass a wide
-range of emotions, speakers, and languages. However, collecting such datasets is
-resource-intensive, and the subjective nature of emotion labeling introduces
-inconsistencies. As a result, many vocoders are trained on datasets dominated by
-neutral or mildly expressive speech, leaving them ill-equipped to handle more
-dramatic or subtle emotional variations.
-
-
-% Discuss the gap in existing vocoders regarding emotional expressiveness.
-% Introduce the concept of emotion embeddings and their relevance. State the
-% objectives: integrating emotion embeddings, improving emotional fidelity, and
-% ensuring generalizability across vocoder types.
-
+The current state of research in emotional speech synthesis and text-to-speech
+(TTS) systems highlights the use of specialized datasets and intermediate
+modules, such as prosody-driven conditioning, to achieve expressive outputs.
+Frameworks like Tacotron \cite{wang2017tacotron}, paired with neural vocoders
+such as WaveNet \cite{oord2016wavenet} and HiFi-GAN \cite{kong2020hifi}, have
+become foundational in this domain. Many systems incorporate emotion or style
+tokens \cite{wang2018style}, which allow modulation of the synthesized speech to
+reflect various emotional states. While these approaches have successfully
+synthesized clear emotional expressions, challenges persist in generating
+nuanced and diverse emotions, especially in handling complex states or
+transitions. Additionally, ensuring robustness remains an issue, as small
+variations in embeddings can lead to significant changes in the quality or
+nature of the output \cite{zhang2021deep}. Emotional Voice Conversion (EVC) and
+our project, "Enhancing Vocoder with Emotion Embeddings \& Cues," share some
+conceptual similarities but differ in scope and focus. EVC is a broader approach
+that seeks to transform a neutral or source utterance into a target emotional
+style without altering speaker identity, often involving a comprehensive
+pipeline that includes acoustic feature extraction, prosody modeling, and
+vocoder synthesis. These systems frequently use parallel data or disentanglement
+techniques to separate speaker traits from emotional features
+\cite{zhou2020transforming}. By contrast, our work focuses specifically on the
+vocoder stage, where we integrate learned emotional embeddings or cues directly
+into the waveform generation process. This enables finer control over
+intonation, timbre, and microprosody, allowing for more precise and natural
+emotional rendering. Unlike EVC, which modifies the entire pipeline to achieve
+emotional transformation, our method emphasizes refining the vocoder to achieve
+stable, contextually appropriate emotional outputs. This targeted approach
+enhances the vocoder’s ability to express subtle emotional nuances, providing
+greater flexibility and control over the synthesized speech’s emotional quality
+\cite{kim2021conditional}.
 
 \newpage
 \section {Methodology}
